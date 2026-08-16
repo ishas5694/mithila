@@ -1,4 +1,5 @@
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 const tiles = [
   { label: "Weaving Madhubani art on cloth", src: "/media/roots-1-weaving.jpg" },
@@ -24,7 +25,7 @@ export default function Roots() {
             <li key={t.label}>
               <MediaSlot
                 label={t.label}
-                src={t.src}
+                src={asset(t.src)}
                 variant="roots"
                 aspect="aspect-[4/3]"
                 className="rounded-[2px]"

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 const socials = [
   { name: "Facebook", src: "/media/social-fb.svg", href: "#" },
@@ -48,7 +49,7 @@ export default function SteepWithUs() {
               className="w-11 h-11 rounded-full border border-ink flex items-center justify-center hover:bg-ink transition group"
             >
               <Image
-                src={s.src}
+                src={asset(s.src)}
                 alt=""
                 width={20}
                 height={20}

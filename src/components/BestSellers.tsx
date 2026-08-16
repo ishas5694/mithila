@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 const products = [
   { name: "Rock Salted Makhana", price: "Rs. 350.00", src: "/media/best-1-rock-salted-makhana.png" },
@@ -22,7 +23,7 @@ export default function BestSellers() {
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
         <div className="flex flex-col items-center text-center">
           <Image
-            src="/media/logo-fan.png"
+            src={asset("/media/logo-fan.png")}
             alt=""
             width={64}
             height={34}
@@ -41,7 +42,7 @@ export default function BestSellers() {
                 <div className="aspect-square">
                   <MediaSlot
                     label={p.name}
-                    src={p.src}
+                    src={asset(p.src)}
                     variant="transparent"
                     aspect="aspect-square"
                     fit="contain"

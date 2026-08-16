@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/asset";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +90,7 @@ export default function ShopPage() {
       <section className="relative w-full">
         <MediaSlot
           label="Lotus leaves & flowers — shop banner"
-          src="/media/roots-2-ghee-lamps.jpg"
+          src={asset("/media/roots-2-ghee-lamps.jpg")}
           variant="cream"
           aspect="aspect-[16/5]"
           className="w-full"

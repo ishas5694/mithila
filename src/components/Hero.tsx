@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 const featured = [
   { label: "All natural", note: "Rock Salted Makhana", src: "/media/featured-1-makhana.png", offset: 0 },
@@ -42,7 +43,7 @@ export default function Hero() {
       {/* Hero copy — Big fan + centered serif line */}
       <div className="mx-auto max-w-[1200px] px-6 md:px-10 pt-20 md:pt-28 pb-8 md:pb-12 text-center">
         <Image
-          src="/media/logo-fan.png"
+          src={asset("/media/logo-fan.png")}
           alt=""
           width={220}
           height={110}
@@ -74,7 +75,7 @@ export default function Hero() {
               >
                 <MediaSlot
                   label={f.note}
-                  src={f.src}
+                  src={asset(f.src)}
                   variant="transparent"
                   aspect="aspect-square"
                   fit="contain"

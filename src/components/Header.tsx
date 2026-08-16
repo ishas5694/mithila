@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 const nav = [
   { label: "Shop", href: "/shop" },
@@ -64,7 +65,7 @@ export default function Header() {
         {/* Centered wordmark */}
         <Link href="/" className="flex-shrink-0 justify-self-center" aria-label="Mithila Gharana — home">
           <Image
-            src="/media/logo-wordmark.png"
+            src={asset("/media/logo-wordmark.png")}
             alt="Mithila Gharana 2026"
             width={260}
             height={54}

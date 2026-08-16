@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 type Col = { title: string; items: { label: string; href: string }[] };
 
@@ -137,7 +138,7 @@ export default function Footer() {
       {/* Wordmark + decorative lotus scene */}
       <div className="pt-14 md:pt-20 pb-6 md:pb-10 text-center">
         <Image
-          src="/media/logo-wordmark.png"
+          src={asset("/media/logo-wordmark.png")}
           alt="Mithila Gharana 2026"
           width={720}
           height={144}
@@ -147,7 +148,7 @@ export default function Footer() {
         {/* Lotus / reed water illustration */}
         <div className="mt-6 md:mt-10 mx-auto max-w-[1440px] px-4 md:px-10">
           <Image
-            src="/media/footer-lotus.png"
+            src={asset("/media/footer-lotus.png")}
             alt=""
             width={2000}
             height={480}

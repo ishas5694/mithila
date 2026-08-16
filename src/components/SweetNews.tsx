@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 function IconArrow(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -48,7 +49,7 @@ export default function SweetNews() {
           {/* Dark food image behind */}
           <MediaSlot
             label="Organic wild forest honey on wooden board with honeycomb & flowers"
-            src="/media/sweet-news-honey.jpg"
+            src={asset("/media/sweet-news-honey.jpg")}
             variant="honey"
             aspect="aspect-[16/9] md:aspect-[16/7]"
             className="rounded-[2px]"
@@ -61,7 +62,7 @@ export default function SweetNews() {
             <ArcSweetNews />
             <div className="mt-16 md:mt-24 w-[110px] md:w-[150px] aspect-square">
               <Image
-                src="/media/sweet-news-jar.png"
+                src={asset("/media/sweet-news-jar.png")}
                 alt="Mithila honey jar"
                 width={300}
                 height={300}

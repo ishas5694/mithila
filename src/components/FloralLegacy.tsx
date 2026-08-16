@@ -1,4 +1,5 @@
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 export default function FloralLegacy() {
   return (
@@ -32,7 +33,7 @@ export default function FloralLegacy() {
           <div className="relative">
             <MediaSlot
               label="Two Mithila gulkand tins on rose petals · dark gulkand backdrop"
-              src="/media/floral-legacy.jpg"
+              src={asset("/media/floral-legacy.jpg")}
               variant="gulkand"
               aspect="aspect-[4/5]"
               className="rounded-[2px] shadow-soft"

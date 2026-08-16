@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { asset } from "@/lib/asset";
 
 type Review = {
   name: string;
@@ -220,7 +221,7 @@ export default function Reviews() {
                   <div className="mt-8 pt-6 border-t border-ink-10 flex items-center gap-4">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden bg-cream border border-ink-10">
                       <Image
-                        src={r.thumbSrc}
+                        src={asset(r.thumbSrc)}
                         alt={r.product}
                         fill
                         sizes="48px"

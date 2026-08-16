@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 const items = [
   "Mithila Gharana",
@@ -15,7 +16,7 @@ export default function GharanaStrip() {
           {[...items, ...items].map((label, i) => (
             <div key={i} className="flex items-center gap-4 md:gap-6 shrink-0">
               <Image
-                src="/media/logo-fan.png"
+                src={asset("/media/logo-fan.png")}
                 alt=""
                 width={40}
                 height={22}
@@ -25,7 +26,7 @@ export default function GharanaStrip() {
                 {label}
               </span>
               <Image
-                src="/media/logo-fan.png"
+                src={asset("/media/logo-fan.png")}
                 alt=""
                 width={40}
                 height={22}

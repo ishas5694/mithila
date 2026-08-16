@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { asset } from "@/lib/asset";
 import MediaSlot from "./MediaSlot";
 
 export type ProductDetailProps = {
@@ -115,7 +116,7 @@ export default function ProductDetail(p: ProductDetailProps) {
             <div className="relative w-full aspect-square bg-cream-soft/60 rounded-[2px] overflow-hidden">
               <Image
                 key={image}
-                src={image}
+                src={asset(image)}
                 alt={p.name}
                 fill
                 sizes="(max-width: 1024px) 90vw, 600px"
@@ -133,7 +134,7 @@ export default function ProductDetail(p: ProductDetailProps) {
                       }`}
                     >
                       <Image
-                        src={src}
+                        src={asset(src)}
                         alt=""
                         fill
                         sizes="100px"
@@ -274,7 +275,7 @@ export default function ProductDetail(p: ProductDetailProps) {
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-cream flex items-center justify-center shadow-soft overflow-hidden">
                   {ing.icon ? (
                     <Image
-                      src={ing.icon}
+                      src={asset(ing.icon)}
                       alt=""
                       width={80}
                       height={80}
@@ -305,7 +306,7 @@ export default function ProductDetail(p: ProductDetailProps) {
           <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             <MediaSlot
               label={`${p.name} — landscape shot`}
-              src={p.storyImage}
+              src={asset(p.storyImage)}
               variant="cream"
               aspect="aspect-[4/5]"
               className="rounded-[6px] shadow-soft"
@@ -342,7 +343,7 @@ export default function ProductDetail(p: ProductDetailProps) {
             <div className="bg-cream-soft/60 rounded-[10px] p-5 md:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-10">
               <div className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] shrink-0">
                 <Image
-                  src={p.combo.image}
+                  src={asset(p.combo.image)}
                   alt={p.combo.title}
                   fill
                   sizes="200px"
@@ -383,7 +384,7 @@ export default function ProductDetail(p: ProductDetailProps) {
                   <>
                     <div className="relative aspect-square bg-cream-soft/60 rounded-[6px] overflow-hidden">
                       <Image
-                        src={r.src}
+                        src={asset(r.src)}
                         alt={r.name}
                         fill
                         sizes="(max-width: 640px) 90vw, 33vw"

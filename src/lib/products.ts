@@ -8,6 +8,8 @@
  * Drop new files in `public/media/` under those exact names and they'll appear
  * across shop, category, product-detail, related, and review sections automatically.
  */
+import { asset } from "./asset";
+
 export type ProductSlug =
   | "TANGY-TAMATO-MAKHANA"
   | "ROCK-SALTED-MAKHANA"
@@ -86,13 +88,13 @@ const LEGACY_CARDS: Record<string, string> = {
 };
 
 export function cardImage(slug: ProductSlug): string {
-  if (NAMED_CARDS.includes(slug)) return `/media/${slug}.png`;
-  return LEGACY_CARDS[slug] ?? "/media/logo-fan.png";
+  if (NAMED_CARDS.includes(slug)) return asset(`/media/${slug}.png`);
+  return asset(LEGACY_CARDS[slug] ?? "/media/logo-fan.png");
 }
 
 export function detailImages(slug: ProductSlug): string[] {
   if (NAMED_CARDS.includes(slug) && productsWithDetail.includes(slug)) {
-    return [1, 2, 3].map((i) => `/media/${slug}-${i}.png`);
+    return [1, 2, 3].map((i) => asset(`/media/${slug}-${i}.png`));
   }
   // Fallback: just repeat the card
   const card = cardImage(slug);
@@ -108,7 +110,7 @@ const productsWithDetail: ProductSlug[] = [
   "LEMON-SATTU",
 ];
 
-export const COMBO_IMAGE = "/media/MAKHANA-COMMON.png";
+export const COMBO_IMAGE = asset("/media/MAKHANA-COMMON.png");
 
 export function findProduct(slug: ProductSlug): Product | undefined {
   return products.find((p) => p.slug === slug);

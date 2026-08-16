@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MediaSlot from "@/components/MediaSlot";
+import { asset } from "@/lib/asset";
 
 export const metadata = { title: "Explore · Mithila Gharana" };
 
@@ -32,7 +33,7 @@ const values = [
 function FanBadge({ className = "" }: { className?: string }) {
   return (
     <Image
-      src="/media/logo-fan.png"
+      src={asset("/media/logo-fan.png")}
       alt=""
       width={80}
       height={40}
@@ -68,7 +69,7 @@ export default function ExplorePage() {
       <section className="relative w-full">
         <MediaSlot
           label="Village lake at golden hour, banyan tree & thatched hut"
-          src="/media/explore-hero.jpg"
+          src={asset("/media/explore-hero.jpg")}
           variant="water"
           aspect="aspect-[16/9] md:aspect-[16/7]"
           className="w-full"
@@ -159,7 +160,7 @@ export default function ExplorePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
               <MediaSlot
                 label="Bowl of makhana on linen — still life"
-                src="/media/explore-makhana-bowl.jpg"
+                src={asset("/media/explore-makhana-bowl.jpg")}
                 variant="cream"
                 aspect="aspect-[5/4]"
                 className="rounded-[4px]"
@@ -281,7 +282,7 @@ export default function ExplorePage() {
           <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-10 md:gap-16 items-center">
             <MediaSlot
               label="Bottle + tin + cylinder collage with white flowers"
-              src="/media/explore-collection.jpg"
+              src={asset("/media/explore-collection.jpg")}
               variant="cream"
               aspect="aspect-[5/4]"
               className="rounded-[4px]"

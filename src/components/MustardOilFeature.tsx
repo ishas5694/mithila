@@ -1,4 +1,5 @@
 import MediaSlot from "./MediaSlot";
+import { asset } from "@/lib/asset";
 
 export default function MustardOilFeature() {
   return (
@@ -27,7 +28,7 @@ export default function MustardOilFeature() {
             <div className="mt-8 mx-auto w-[110px] aspect-[110/220]">
               <MediaSlot
                 label="Mustard oil bottle"
-                src="/media/mustard-oil-bottle.png"
+                src={asset("/media/mustard-oil-bottle.png")}
                 variant="transparent"
                 aspect="aspect-[110/220]"
                 fit="contain"

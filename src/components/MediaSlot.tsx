@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import { clsx } from "@/lib/clsx";
 
 type Variant =
@@ -105,7 +106,7 @@ export default function MediaSlot({
       {videoSrc ? (
         <video
           className={clsx("absolute inset-0 w-full h-full", objectFit)}
-          src={videoSrc}
+          src={asset(videoSrc)}
           autoPlay
           muted
           loop
@@ -115,7 +116,7 @@ export default function MediaSlot({
       ) : src ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={src}
+          src={asset(src)}
           alt={label}
           className={clsx("absolute inset-0 w-full h-full", objectFit)}
           loading="lazy"

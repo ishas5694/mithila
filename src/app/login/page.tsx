@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/asset";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export default function LoginPage() {
             {/* Big tin */}
             <div className="col-span-4 row-span-6 relative">
               <Image
-                src="/media/best-4-minty-pudhina-makhana.png"
+                src={asset("/media/best-4-minty-pudhina-makhana.png")}
                 alt="Minty Pudhina Makhana"
                 fill
                 sizes="(max-width: 768px) 60vw, 40vw"
@@ -27,7 +28,7 @@ export default function LoginPage() {
             {/* Small tin top-right */}
             <div className="col-span-2 row-span-3 relative">
               <Image
-                src="/media/best-1-rock-salted-makhana.png"
+                src={asset("/media/best-1-rock-salted-makhana.png")}
                 alt="Rock Salted Makhana"
                 fill
                 sizes="20vw"
