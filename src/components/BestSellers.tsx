@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import MediaSlot from "./MediaSlot";
 import { asset } from "@/lib/asset";
 
 const products = [
-  { name: "Rock Salted Makhana",  price: "Rs. 350.00", src: "/media/best-1-rock-salted-makhana.png" },
-  { name: "Saffron Gulkand",       price: "Rs. 450.00", src: "/media/best-2-saffron-gulkand.png" },
-  { name: "Marcha Rice",           price: "Rs. 550.00", src: "/media/best-3-marcha-rice.png" },
-  { name: "Minty Pudhina Makhana", price: "Rs. 500.00", src: "/media/best-4-minty-pudhina-makhana.png" },
+  { name: "Rock Salted Makhana",   price: "Rs. 350.00", src: "/media/best-1-rock-salted-makhana.png",   href: "/makhana" },
+  { name: "Saffron Gulkand",       price: "Rs. 450.00", src: "/media/best-2-saffron-gulkand.png",       href: "/gulkand" },
+  { name: "Marcha Rice",           price: "Rs. 550.00", src: "/media/best-3-marcha-rice.png",           href: "/rice"    },
+  { name: "Minty Pudhina Makhana", price: "Rs. 500.00", src: "/media/best-4-minty-pudhina-makhana.png", href: "/makhana" },
 ];
 
 function IconArrowRight(props: React.SVGProps<SVGSVGElement>) {
@@ -39,8 +40,9 @@ export default function BestSellers() {
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 reveal-stagger">
             {products.map((p) => (
               <li key={p.name} className="text-center group">
-                <a
-                  href="/shop"
+                <Link
+                  href={p.href}
+                  aria-label={`Shop ${p.name}`}
                   className="block relative rounded-[6px] p-4 -m-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-cream-soft/60 hover:shadow-[var(--shadow-soft)]"
                 >
                   <div className="aspect-square relative overflow-hidden">
@@ -75,7 +77,7 @@ export default function BestSellers() {
                       <IconArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

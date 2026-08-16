@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import MediaSlot from "./MediaSlot";
 import { asset } from "@/lib/asset";
 
@@ -65,9 +66,11 @@ export default function SweetNews() {
             className="pointer-events-none absolute inset-0 z-[1] [background:radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.35)_100%)]"
           />
 
-          {/* Floating vertical PILL card at top-left */}
-          <div
-            className="absolute top-6 left-6 md:top-14 md:left-16 z-[3] w-[220px] h-[340px] md:w-[300px] md:h-[460px] bg-cream rounded-full shadow-[var(--shadow-lift)] flex flex-col items-center pt-16 md:pt-20 pb-8 md:pb-10 px-6 md:px-8 text-center transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
+          {/* Floating vertical PILL card at top-left — links to Honey page */}
+          <Link
+            href="/honey"
+            aria-label="Shop Mithila Gold Honey"
+            className="absolute top-6 left-6 md:top-14 md:left-16 z-[3] w-[220px] h-[340px] md:w-[300px] md:h-[460px] bg-cream rounded-full shadow-[var(--shadow-lift)] flex flex-col items-center pt-16 md:pt-20 pb-8 md:pb-10 px-6 md:px-8 text-center transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 hover:shadow-[var(--shadow-glow)]"
             data-parallax="0.05"
           >
             <ArcSweetNews />
@@ -87,15 +90,16 @@ export default function SweetNews() {
               <br />
               Your Homes
             </p>
-          </div>
+          </Link>
 
-          {/* Next arrow */}
-          <button
-            aria-label="Next"
+          {/* Next arrow — jumps to Honey page too */}
+          <Link
+            href="/honey"
+            aria-label="Explore honey"
             className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-[3] w-12 h-12 rounded-full border-2 border-cream/70 items-center justify-center text-cream hover:bg-cream hover:text-ink hover:border-cream transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110"
           >
             <IconArrow className="w-5 h-5" />
-          </button>
+          </Link>
 
           {/* Caption line at bottom center */}
           <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-[3] text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-cream/85">

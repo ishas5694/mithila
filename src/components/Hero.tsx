@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { asset } from "@/lib/asset";
 import MagneticButton from "./MagneticButton";
@@ -8,11 +9,11 @@ import MediaSlot from "./MediaSlot";
 import SplitReveal from "./SplitReveal";
 
 const featured = [
-  { label: "All natural",       note: "Rock Salted Makhana",  src: "/media/featured-1-makhana.png",         offset: 0 },
-  { label: "Ancient Super food",note: "Sattu",                src: "/media/featured-2-sattu.png",           offset: 1 },
-  { label: "Modern wellness",   note: "Saffron Gulkand",      src: "/media/featured-3-saffron-gulkand.png", offset: 2 },
-  { label: "Forgotten grain",   note: "Marcha Rice",          src: "/media/featured-4-marcha-rice.png",     offset: 3 },
-  { label: "Crafted Elegance",  note: "Keoti Dal",            src: "/media/featured-5-kulhad-coffee.png",   offset: 4 },
+  { label: "All natural",       note: "Rock Salted Makhana",  src: "/media/featured-1-makhana.png",         href: "/makhana", offset: 0 },
+  { label: "Ancient Super food",note: "Sattu",                src: "/media/featured-2-sattu.png",           href: "/shop#sattu", offset: 1 },
+  { label: "Modern wellness",   note: "Saffron Gulkand",      src: "/media/featured-3-saffron-gulkand.png", href: "/gulkand", offset: 2 },
+  { label: "Forgotten grain",   note: "Marcha Rice",          src: "/media/featured-4-marcha-rice.png",     href: "/rice",    offset: 3 },
+  { label: "Crafted Elegance",  note: "Keoti Dal",            src: "/media/featured-5-kulhad-coffee.png",   href: "/daal",    offset: 4 },
 ];
 
 /**
@@ -83,31 +84,37 @@ function FeaturedTile({
   const ref = useTilt();
   return (
     <li className="text-center group">
-      <div
-        className="mx-auto w-full max-w-[210px] aspect-square animate-float relative"
-        style={{ animationDelay: `${f.offset * 0.4}s` }}
+      <Link
+        href={f.href}
+        aria-label={`Shop ${f.note}`}
+        className="block"
       >
         <div
-          ref={ref}
-          className="w-full h-full transition-[filter] duration-500 group-hover:[filter:drop-shadow(0_12px_18px_rgba(122,90,47,0.28))]"
-          style={{ transformStyle: "preserve-3d" }}
+          className="mx-auto w-full max-w-[210px] aspect-square animate-float relative"
+          style={{ animationDelay: `${f.offset * 0.4}s` }}
         >
-          <MediaSlot
-            label={f.note}
-            src={asset(f.src)}
-            variant="transparent"
-            aspect="aspect-square"
-            fit="contain"
-          />
+          <div
+            ref={ref}
+            className="w-full h-full transition-[filter] duration-500 group-hover:[filter:drop-shadow(0_12px_18px_rgba(122,90,47,0.28))]"
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            <MediaSlot
+              label={f.note}
+              src={asset(f.src)}
+              variant="transparent"
+              aspect="aspect-square"
+              fit="contain"
+            />
+          </div>
         </div>
-      </div>
-      <p
-        className={`mt-5 text-[13px] md:text-[15px] text-ink transition-transform duration-500 group-hover:-translate-y-1 ${
-          idx % 2 === 1 ? "md:mt-10" : ""
-        }`}
-      >
-        {f.label}
-      </p>
+        <p
+          className={`mt-5 text-[13px] md:text-[15px] text-ink transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-bronze-deep ${
+            idx % 2 === 1 ? "md:mt-10" : ""
+          }`}
+        >
+          {f.label}
+        </p>
+      </Link>
     </li>
   );
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MediaSlot from "./MediaSlot";
 import { asset } from "@/lib/asset";
 import SplitReveal from "./SplitReveal";
@@ -30,7 +31,11 @@ export default function MustardOilFeature() {
               protects cells, boosts immunity, and promotes healthy skin.
             </p>
 
-            <div className="mt-8 mx-auto w-[110px] aspect-[110/220] animate-float">
+            <Link
+              href="/oil"
+              aria-label="Shop Premium Mustard Oil"
+              className="mt-8 mx-auto w-[110px] aspect-[110/220] animate-float transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
+            >
               <MediaSlot
                 label="Mustard oil bottle"
                 src={asset("/media/mustard-oil-bottle.png")}
@@ -38,16 +43,19 @@ export default function MustardOilFeature() {
                 aspect="aspect-[110/220]"
                 fit="contain"
               />
-            </div>
+            </Link>
 
             <div className="mt-6">
-              <div className="text-[14px] tracking-[0.06em] text-ink">
+              <Link
+                href="/oil"
+                className="text-[14px] tracking-[0.06em] text-ink hover:text-bronze-deep transition-colors duration-300"
+              >
                 Premium – Edible Oil
-              </div>
+              </Link>
               <div className="mt-1 text-[13px] text-ink-70">Rs 850</div>
             </div>
 
-            <a
+            <Link
               href="/oil"
               className="group/btn mt-7 relative inline-flex items-center gap-3 px-9 py-3 border border-ink text-[11px] tracking-[0.28em] uppercase text-ink rounded-full overflow-hidden transition-colors duration-500 hover:text-cream"
             >
@@ -62,7 +70,7 @@ export default function MustardOilFeature() {
               >
                 →
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
