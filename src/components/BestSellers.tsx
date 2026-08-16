@@ -15,7 +15,7 @@ const products: Product[] = [
     price: "Rs. 350.00",
     href: "/makhana",
     images: [
-      "/media/test/review-1-thumb.jpg",
+      "/media/test/Whatsup2.png",
       "/media/test/rock-salted-front.png",
     ],
   },
@@ -24,8 +24,8 @@ const products: Product[] = [
     price: "Rs. 450.00",
     href: "/gulkand",
     images: [
-      "/media/best-2-saffron-gulkand.png",
       "/media/test/ROYAL-SAFFRON-GULKAND.png",
+      "/media/test/ROYAL-SAFFRON-GULKAND-Shade.png",
     ],
   },
   {
@@ -34,7 +34,7 @@ const products: Product[] = [
     href: "/rice",
     images: [
       "/media/best-3-marcha-rice.png",
-      "/media/test/marcha-rice-open.png",
+      "/media/test/marcha-rice-open.png"
     ],
   },
   {
