@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
-// Repo name — pages will be served at https://<user>.github.io/<REPO>/.
-// Override with NEXT_PUBLIC_BASE_PATH (e.g. "" for a user page or custom domain).
-const basePath =
-  process.env.NEXT_PUBLIC_BASE_PATH !== undefined
-    ? process.env.NEXT_PUBLIC_BASE_PATH
-    : "/mithila";
+// basePath is only needed for the GitHub Pages deploy (production build).
+// In `next dev` we keep it empty so http://localhost:3000 works at the root
+// like any normal Next app.
+const isProd = process.env.NODE_ENV === "production";
+const basePath = isProd
+  ? process.env.NEXT_PUBLIC_BASE_PATH ?? "/mithila"
+  : "";
 
 const nextConfig: NextConfig = {
   // Static HTML export — writes an `out/` folder that any static host can serve.
@@ -20,7 +21,7 @@ const nextConfig: NextConfig = {
   // Emit trailing slashes so GitHub Pages resolves /route/ → /route/index.html.
   trailingSlash: true,
 
-  // Expose basePath to the client bundle for our asset() helper (raw <img>/<video>).
+  // Expose basePath to the client bundle for our asset() helper.
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
   },

@@ -8,9 +8,12 @@
  *
  * Runtime lookup order: NEXT_PUBLIC_BASE_PATH env → hardcoded fallback.
  */
-const BASE =
-  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_BASE_PATH) ||
-  "/mithila";
+// In dev, NEXT_PUBLIC_BASE_PATH is inlined as "" — so we do NOT fall through to
+// the "/mithila" default and everything works at http://localhost:3000/. In the
+// production build (GitHub Pages), it's inlined as "/mithila".
+const raw =
+  typeof process !== "undefined" ? process.env?.NEXT_PUBLIC_BASE_PATH : undefined;
+const BASE = raw !== undefined ? raw : "/mithila";
 
 export function asset(path: string | undefined): string {
   if (!path) return path ?? "";

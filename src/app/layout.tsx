@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Great_Vibes, Inter, Playfair_Display } from "next/font/google";
+import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import RevealScript from "@/components/RevealScript";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SteepWithUs />
         <Footer />
         <RevealScript />
+        <CustomCursor />
       </body>
     </html>
   );

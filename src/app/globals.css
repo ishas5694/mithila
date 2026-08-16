@@ -11,10 +11,10 @@
   --color-ink-40: rgba(42, 42, 42, 0.4);
   --color-ink-20: rgba(42, 42, 42, 0.2);
   --color-ink-10: rgba(42, 42, 42, 0.1);
-  --color-script: #c1352a;            /* red script accent "story" */
-  --color-bronze: #7a5a2f;            /* footer bg + strip */
+  --color-script: #c1352a;
+  --color-bronze: #7a5a2f;
   --color-bronze-deep: #5d4321;
-  --color-gulkand: #6b1a20;           /* MITHILA'S FLORAL LEGACY dark backdrop */
+  --color-gulkand: #6b1a20;
   --color-honey: #d99a2b;
 
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
@@ -22,12 +22,27 @@
   --font-serif: var(--font-serif), "Playfair Display", Georgia, serif;
   --font-script: var(--font-script), "Great Vibes", cursive;
 
-  --shadow-soft: 0 1px 2px rgba(42, 42, 42, 0.05), 0 10px 30px
-    rgba(42, 42, 42, 0.08);
+  /* Premium shadow system — warm tinted */
+  --shadow-soft: 0 1px 2px rgba(42, 42, 42, 0.04),
+    0 8px 24px rgba(122, 90, 47, 0.08);
+  --shadow-lift: 0 2px 4px rgba(42, 42, 42, 0.06),
+    0 18px 40px rgba(122, 90, 47, 0.12), 0 30px 80px rgba(42, 42, 42, 0.08);
+  --shadow-glow: 0 0 0 1px rgba(122, 90, 47, 0.06),
+    0 20px 60px rgba(122, 90, 47, 0.18);
+
+  /* Premium easings — the difference between generic and expensive */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-organic: cubic-bezier(0.6, 0.05, 0.15, 0.95);
 }
 
 :root {
   color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -36,153 +51,303 @@ body {
   color: var(--color-ink);
   max-width: 100vw;
   overflow-x: clip;
+  /* Anti-aliasing for premium look */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Marquee for announcement bar */
+/* Selection color */
+::selection {
+  background: var(--color-bronze);
+  color: var(--color-cream);
+}
+
+/* ============================================================ */
+/* Marquee                                                       */
+/* ============================================================ */
 @keyframes mithila-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
+.animate-marquee { animation: mithila-marquee 40s linear infinite; }
 
-.animate-marquee {
-  animation: mithila-marquee 40s linear infinite;
-}
-
-/* Subtle up/down float used on product tiles */
+/* ============================================================ */
+/* Subtle float — product tiles                                  */
+/* ============================================================ */
 @keyframes mithila-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
 }
-
 .animate-float {
   animation: mithila-float 4.5s ease-in-out infinite;
   will-change: transform;
 }
 
-/* Fade-in used for main product image swap */
+/* ============================================================ */
+/* Ken burns — slow zoom used on hero video/image                */
+/* ============================================================ */
+@keyframes mithila-ken-burns {
+  0%   { transform: scale(1.02);   }
+  100% { transform: scale(1.09);   }
+}
+.animate-ken-burns > * {
+  animation: mithila-ken-burns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ============================================================ */
+/* Fade-in used for main product image swap                      */
+/* ============================================================ */
 @keyframes mithila-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
 }
+.animate-fade-in { animation: mithila-fade-in 400ms var(--ease-quart) both; }
 
-.animate-fade-in {
-  animation: mithila-fade-in 400ms ease-out both;
-}
-
-/* Scroll-reveal: elements with .reveal fade+slide when they enter view.
-   A tiny inline IntersectionObserver (script below) toggles [data-in="1"] */
+/* ============================================================ */
+/* Scroll reveal — smoother easing + longer duration            */
+/* ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms ease, transform 700ms ease;
+  transform: translateY(36px);
+  transition: opacity 900ms var(--ease-expo),
+              transform 900ms var(--ease-expo);
   will-change: opacity, transform;
 }
-.reveal[data-in="1"] {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal[data-in="1"] { opacity: 1; transform: translateY(0); }
+
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms ease, transform 700ms ease;
+  transform: translateY(36px);
+  transition: opacity 900ms var(--ease-expo),
+              transform 900ms var(--ease-expo);
 }
-.reveal-stagger[data-in="1"] > *:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger[data-in="1"] > *:nth-child(2) { transition-delay: 90ms; }
+.reveal-stagger[data-in="1"] > *:nth-child(1) { transition-delay: 0ms;   }
+.reveal-stagger[data-in="1"] > *:nth-child(2) { transition-delay: 90ms;  }
 .reveal-stagger[data-in="1"] > *:nth-child(3) { transition-delay: 180ms; }
 .reveal-stagger[data-in="1"] > *:nth-child(4) { transition-delay: 270ms; }
 .reveal-stagger[data-in="1"] > *:nth-child(5) { transition-delay: 360ms; }
 .reveal-stagger[data-in="1"] > *:nth-child(6) { transition-delay: 450ms; }
+.reveal-stagger[data-in="1"] > *:nth-child(7) { transition-delay: 540ms; }
+.reveal-stagger[data-in="1"] > *:nth-child(8) { transition-delay: 630ms; }
 .reveal-stagger[data-in="1"] > * {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1; transform: translateY(0);
 }
 
+/* ============================================================ */
+/* Image clip-mask reveal — used on Floral Legacy hero image     */
+/* ============================================================ */
+.reveal-mask {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1400ms var(--ease-expo);
+  will-change: clip-path;
+}
+.reveal-mask[data-in="1"] { clip-path: inset(0 0 0 0); }
+
+/* ============================================================ */
+/* Split-text — each span rises with stagger                     */
+/* ============================================================ */
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+.split-line > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 1100ms var(--ease-expo),
+              opacity 900ms var(--ease-expo);
+  will-change: transform, opacity;
+}
+.split-line[data-in="1"] > span,
+.split-parent[data-in="1"] .split-line > span {
+  transform: translateY(0);
+  opacity: 1;
+}
+.split-parent[data-in="1"] .split-line:nth-of-type(1) > span { transition-delay: 60ms;  }
+.split-parent[data-in="1"] .split-line:nth-of-type(2) > span { transition-delay: 220ms; }
+.split-parent[data-in="1"] .split-line:nth-of-type(3) > span { transition-delay: 380ms; }
+
+/* ============================================================ */
+/* Custom cursor                                                 */
+/* ============================================================ */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  transform: translate3d(-50%, -50%, 0);
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  transition: transform 60ms linear, opacity 200ms ease, width 200ms var(--ease-expo), height 200ms var(--ease-expo);
+}
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: transform 300ms var(--ease-expo),
+              width 300ms var(--ease-expo),
+              height 300ms var(--ease-expo),
+              border-color 300ms ease,
+              background-color 300ms ease,
+              opacity 200ms ease;
+}
+.cursor-ring[data-active="1"] {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+}
+.cursor-ring[data-hidden="1"],
+.cursor-dot[data-hidden="1"] {
+  opacity: 0;
+}
+/* Hide native cursor look only where explicitly opted in */
+.cursor-none, .cursor-none * { cursor: none !important; }
+
+/* On touch / narrow viewports, skip the custom cursor entirely */
+@media (hover: none), (max-width: 900px) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  .cursor-none, .cursor-none * { cursor: auto !important; }
+}
+
+/* ============================================================ */
+/* Magnetic cta — subtle attract on hover                         */
+/* ============================================================ */
+.magnetic {
+  transition: transform 400ms var(--ease-expo);
+  will-change: transform;
+}
+
+/* ============================================================ */
+/* Hero grain overlay — very subtle film grain feel              */
+/* ============================================================ */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+/* Cinematic bottom vignette on hero video */
+.vignette-b::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 25%, transparent 60%, rgba(0,0,0,0.55) 100%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.35) 100%);
+  z-index: 1;
+}
+
+/* ============================================================ */
+/* Card hover — smooth lift with warm shadow                     */
+/* ============================================================ */
+.card-lift {
+  transition: transform 700ms var(--ease-expo),
+              box-shadow 700ms var(--ease-expo);
+  will-change: transform, box-shadow;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ============================================================ */
+/* Underline hover — text link with animated underline           */
+/* ============================================================ */
+.link-uline {
+  position: relative;
+}
+.link-uline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 500ms var(--ease-expo);
+}
+.link-uline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* ============================================================ */
+/* Ambient rotate — for decorative elements (Sweet News arc)     */
+/* ============================================================ */
+@keyframes mithila-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-slow-rotate { animation: mithila-rotate 80s linear infinite; }
+
+/* ============================================================ */
+/* Placeholder gradients                                         */
+/* ============================================================ */
+.img-cream {
+  background: linear-gradient(180deg, var(--color-cream-soft) 0%, var(--color-cream-dim) 100%);
+}
+.img-water {
+  background: radial-gradient(ellipse at 30% 20%, rgba(70, 100, 110, 0.35), transparent 55%),
+    linear-gradient(180deg, #1c2a30 0%, #0e1a20 100%);
+}
+.img-gulkand {
+  background: radial-gradient(circle at 40% 30%, rgba(217, 154, 43, 0.35), transparent 55%),
+    linear-gradient(160deg, #4c1218 0%, #2a0b0f 100%);
+}
+.img-sunflower {
+  background: linear-gradient(180deg, rgba(217, 154, 43, 0.35) 0%, rgba(140, 96, 30, 0.35) 100%), #6b7345;
+}
+.img-honey {
+  background: linear-gradient(160deg, rgba(217, 154, 43, 0.4), rgba(122, 90, 47, 0.5)), #2a1f14;
+}
+.img-roots {
+  background: linear-gradient(140deg, rgba(122, 90, 47, 0.4), rgba(74, 90, 58, 0.4)), #5a4a36;
+}
+
+/* Hairlines */
+.hairline-t { border-top: 1px solid rgba(42, 42, 42, 0.15); }
+.hairline-b { border-bottom: 1px solid rgba(42, 42, 42, 0.15); }
+
+/* ============================================================ */
+/* Reduced motion — turn all animations off                      */
+/* ============================================================ */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .animate-float,
   .animate-marquee,
   .animate-fade-in,
+  .animate-ken-burns > *,
+  .animate-slow-rotate,
   .reveal,
-  .reveal-stagger > * {
+  .reveal-stagger > *,
+  .reveal-mask,
+  .split-line > span,
+  .magnetic,
+  .card-lift,
+  .link-uline::after {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
   }
-}
-
-/* Warm placeholder gradients — swapped in until real product photos ship */
-.img-cream {
-  background: linear-gradient(
-    180deg,
-    var(--color-cream-soft) 0%,
-    var(--color-cream-dim) 100%
-  );
-}
-
-.img-water {
-  background: radial-gradient(
-      ellipse at 30% 20%,
-      rgba(70, 100, 110, 0.35),
-      transparent 55%
-    ),
-    linear-gradient(180deg, #1c2a30 0%, #0e1a20 100%);
-}
-
-.img-gulkand {
-  background: radial-gradient(
-      circle at 40% 30%,
-      rgba(217, 154, 43, 0.35),
-      transparent 55%
-    ),
-    linear-gradient(160deg, #4c1218 0%, #2a0b0f 100%);
-}
-
-.img-sunflower {
-  background: linear-gradient(
-      180deg,
-      rgba(217, 154, 43, 0.35) 0%,
-      rgba(140, 96, 30, 0.35) 100%
-    ),
-    #6b7345;
-}
-
-.img-honey {
-  background: linear-gradient(
-      160deg,
-      rgba(217, 154, 43, 0.4),
-      rgba(122, 90, 47, 0.5)
-    ),
-    #2a1f14;
-}
-
-.img-roots {
-  background: linear-gradient(
-      140deg,
-      rgba(122, 90, 47, 0.4),
-      rgba(74, 90, 58, 0.4)
-    ),
-    #5a4a36;
-}
-
-/* Hairlines */
-.hairline-t {
-  border-top: 1px solid rgba(42, 42, 42, 0.15);
-}
-.hairline-b {
-  border-bottom: 1px solid rgba(42, 42, 42, 0.15);
+  .cursor-dot, .cursor-ring { display: none !important; }
 }
