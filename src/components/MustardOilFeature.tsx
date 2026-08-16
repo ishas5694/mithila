@@ -34,15 +34,40 @@ export default function MustardOilFeature() {
             <Link
               href="/oil"
               aria-label="Shop Premium Mustard Oil"
-              className="mt-8 mx-auto w-[110px] aspect-[110/220] animate-float transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
+              className="group/bottle mt-8 mx-auto w-[110px] aspect-[110/220] animate-float relative block"
+              style={{ perspective: "900px" }}
             >
-              <MediaSlot
-                label="Mustard oil bottle"
-                src={asset("/media/mustard-oil-bottle.png")}
-                variant="transparent"
-                aspect="aspect-[110/220]"
-                fit="contain"
-              />
+              {/* 3D flip container */}
+              <span
+                className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/bottle:[transform:rotateY(180deg)]"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Front */}
+                <span
+                  className="absolute inset-0 [backface-visibility:hidden]"
+                >
+                  <MediaSlot
+                    label="Mustard oil bottle — front"
+                    src={asset("/media/mustard-oil-bottle.png")}
+                    variant="transparent"
+                    aspect="aspect-[110/220]"
+                    fit="contain"
+                  />
+                </span>
+                {/* Back */}
+                <span
+                  className="absolute inset-0 [backface-visibility:hidden]"
+                  style={{ transform: "rotateY(180deg)" }}
+                >
+                  <MediaSlot
+                    label="Mustard oil bottle — back label"
+                    src={asset("/media/test/oil-back.png")}
+                    variant="transparent"
+                    aspect="aspect-[110/220]"
+                    fit="contain"
+                  />
+                </span>
+              </span>
             </Link>
 
             <div className="mt-6">
