@@ -93,13 +93,33 @@ export default function SweetNews() {
           </Link>
 
           {/* Next arrow — jumps to Honey page too */}
-          <Link
-            href="/honey"
-            aria-label="Explore honey"
-            className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-[3] w-12 h-12 rounded-full border-2 border-cream/70 items-center justify-center text-cream hover:bg-cream hover:text-ink hover:border-cream transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110"
-          >
-            <IconArrow className="w-5 h-5" />
-          </Link>
+          <div className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 z-[3] w-14 h-14">
+            {/* Rotating dashed outline */}
+            <svg
+              viewBox="0 0 100 100"
+              className="absolute inset-0 w-full h-full pointer-events-none animate-slow-rotate text-cream/70"
+              style={{ animationDuration: "18s" }}
+              aria-hidden
+            >
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.9"
+                strokeDasharray="1.6 4"
+                strokeLinecap="round"
+              />
+            </svg>
+            <Link
+              href="/honey"
+              aria-label="Explore honey"
+              className="absolute inset-1 rounded-full border border-cream/60 flex items-center justify-center text-cream hover:bg-cream hover:text-ink hover:border-cream transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
+            >
+              <IconArrow className="w-5 h-5" />
+            </Link>
+          </div>
 
           {/* Caption line at bottom center */}
           <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-[3] text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-cream/85">

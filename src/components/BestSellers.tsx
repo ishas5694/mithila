@@ -1,15 +1,12 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
 import { asset } from "@/lib/asset";
 
 type Product = {
   name: string;
   price: string;
   href: string;
-  images: [string, string, string]; // [default, hover-left, hover-right]
+  images: [string, string]; // [default, hover]
 };
 
 const products: Product[] = [
@@ -20,7 +17,6 @@ const products: Product[] = [
     images: [
       "/media/test/review-1-thumb.jpg",
       "/media/test/rock-salted-front.png",
-      "/media/test/review-1-thumb.png",
     ],
   },
   {
@@ -30,7 +26,6 @@ const products: Product[] = [
     images: [
       "/media/best-2-saffron-gulkand.png",
       "/media/test/ROYAL-SAFFRON-GULKAND.png",
-      "/media/test/ROYAL-SAFFRON-GULKAND-Shade.png",
     ],
   },
   {
@@ -40,7 +35,6 @@ const products: Product[] = [
     images: [
       "/media/best-3-marcha-rice.png",
       "/media/test/marcha-rice-open.png",
-      "/media/test/rice-hero-3.jpg",
     ],
   },
   {
@@ -50,7 +44,6 @@ const products: Product[] = [
     images: [
       "/media/best-4-minty-pudhina-makhana.png",
       "/media/test/minty-pudhina-open.png",
-      "/media/best-4-minty-pudhina-makhana.png",
     ],
   },
 ];
@@ -87,18 +80,6 @@ function RotatingRing() {
 }
 
 function ProductCard({ p }: { p: Product }) {
-  // 0 = default, 1 = hover-left, 2 = hover-right
-  const [state, setState] = useState<0 | 1 | 2>(0);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-
-  const handleMove: React.MouseEventHandler = (e) => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    setState(x < r.width / 2 ? 1 : 2);
-  };
-
   return (
     <li className="text-center group">
       <Link
@@ -106,61 +87,32 @@ function ProductCard({ p }: { p: Product }) {
         aria-label={`Shop ${p.name}`}
         className="block relative rounded-[6px] p-4 -m-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-cream-soft/40 hover:shadow-[var(--shadow-soft)]"
       >
-        <div
-          ref={wrapRef}
-          onMouseMove={handleMove}
-          onMouseLeave={() => setState(0)}
-          className="aspect-square relative overflow-hidden rounded-[4px] bg-cream-soft/40"
-        >
-          {/* Three stacked images — cross-fade + subtle scale between them */}
-          {p.images.map((src, i) => (
-            <Image
-              key={src + i}
-              src={asset(src)}
-              alt={p.name}
-              fill
-              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
-              className={`object-contain p-6 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                state === i
-                  ? "opacity-100 scale-105"
-                  : "opacity-0 scale-100"
-              }`}
-              style={{ willChange: "opacity, transform" }}
-              priority={i === 0}
-            />
-          ))}
+        <div className="aspect-square relative overflow-hidden rounded-[4px] bg-cream-soft/40">
+          {/* Default */}
+          <Image
+            src={asset(p.images[0])}
+            alt={p.name}
+            fill
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+            className="object-contain p-6 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] opacity-100 group-hover:opacity-0 scale-100 group-hover:scale-105"
+            style={{ willChange: "opacity, transform" }}
+            priority
+          />
+          {/* Hover */}
+          <Image
+            src={asset(p.images[1])}
+            alt={p.name}
+            fill
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+            className="object-contain p-6 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105"
+            style={{ willChange: "opacity, transform" }}
+          />
 
           {/* Warm hover glow behind product */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 [background:radial-gradient(circle_at_center,rgba(217,154,43,0.18),transparent_65%)]"
           />
-
-          {/* Split-zone indicators (very subtle) — appear only on hover */}
-          <div
-            aria-hidden
-            className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-ink-40 flex items-center justify-center text-ink-70 bg-cream/80 backdrop-blur transition-all duration-500 ${
-              state === 1
-                ? "left-3 opacity-100"
-                : state === 2
-                ? "right-3 opacity-100 rotate-180"
-                : "left-3 opacity-0"
-            }`}
-          >
-            <span className="text-[10px] leading-none">←</span>
-          </div>
-
-          {/* Dot indicator row */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                className={`h-[3px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  state === i ? "w-6 bg-ink" : "w-2 bg-ink-40"
-                }`}
-              />
-            ))}
-          </div>
         </div>
 
         <div className="mt-5 text-left px-1 flex items-baseline justify-between gap-3">
